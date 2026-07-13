@@ -1,0 +1,109 @@
+<div class="register-page">
+  <div class="register-container">
+    <h2>Register with us</h2>
+
+    <div *ngIf="registered()" class="success">
+      <span class="check">✓</span>
+      <p class="section-label">PAYMENT VERIFIED</p>
+      <h3>Registration complete!</h3>
+      <p>Welcome to Martand Ganpati Mandal. Your registration and payment have been received.</p>
+      <button class="button filled" (click)="closeSuccess()">Register another</button>
+    </div>
+
+    <form *ngIf="!registered()" [formGroup]="registration" (ngSubmit)="pay()" class="form">
+      <p class="section-label">MARTAND GANPATI MANDAL</p>
+
+      <label>
+        Full Name
+        <input formControlName="fullName" placeholder="Enter your full name" />
+        <small *ngIf="invalid('fullName')">Please enter your full name.</small>
+      </label>
+
+      <div class="form-row">
+        <label>
+          Mobile Number
+          <input formControlName="mobile" maxlength="10" placeholder="9876543210" />
+          <small *ngIf="invalid('mobile')">Enter valid mobile number.</small>
+        </label>
+
+        <label>
+          WhatsApp Number
+          <input formControlName="whatsapp" maxlength="10" placeholder="9876543210" />
+          <small *ngIf="invalid('whatsapp')">Enter valid WhatsApp number.</small>
+        </label>
+      </div>
+
+      <label>
+        Email Address
+        <input type="email" formControlName="email" placeholder="example@gmail.com" />
+        <small *ngIf="invalid('email')">Enter valid email.</small>
+      </label>
+
+      <div class="form-row">
+        <label>
+          Age
+          <input formControlName="age" type="number" min="17" max="120" />
+          <small *ngIf="invalid('age')">Age should be between 17 and 120.</small>
+        </label>
+
+        <label>
+          Gender
+          <select formControlName="gender">
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+          <small *ngIf="invalid('gender')">Please select gender.</small>
+        </label>
+      </div>
+
+      <label>
+        Photo
+        <span class="optional">JPG / PNG / WEBP · Max 3 MB</span>
+        <input
+          class="photo-input"
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          (change)="onPhotoChange($event)"
+        />
+        <span class="file-name" *ngIf="photoName()">✓ {{ photoName() }}</span>
+        <small *ngIf="registration.touched && !photoData()">Please upload a photo.</small>
+      </label>
+
+      <fieldset>
+        <legend>Membership Type</legend>
+
+        <label class="member-choice">
+          <input type="radio" formControlName="memberType" value="old" />
+          <span>
+            <b>Existing Member</b>
+            <small>Returning Member</small>
+          </span>
+          <strong>₹1,800</strong>
+        </label>
+
+        <label class="member-choice">
+          <input type="radio" formControlName="memberType" value="new" />
+          <span>
+            <b>New Member</b>
+            <small>First Time Registration</small>
+          </span>
+          <strong>₹2,000</strong>
+        </label>
+      </fieldset>
+
+      <div class="fee-total">
+        <span>Registration Fee</span>
+        <b>₹{{ fee() | number }}</b>
+      </div>
+
+      <button class="pay-button" type="submit" [disabled]="isPaying()">
+        {{ isPaying() ? 'Opening Razorpay...' : 'Pay Securely with Razorpay' }} <b>→</b>
+      </button>
+
+      <p class="payment-note">Your payment is securely processed by Razorpay.</p>
+    </form>
+  </div>
+</div>
+

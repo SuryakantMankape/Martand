@@ -13,5 +13,8 @@
         "serve": { "builder": "@angular/build:dev-server", "configurations": { "development": { "buildTarget": "people-register:build" } }, "defaultConfiguration": "development" }
       }
     }
+  },
+  "cli": {
+    "analytics": "e7a4fc2e-105a-484d-b970-ef04deb0e531"
   }
 }
