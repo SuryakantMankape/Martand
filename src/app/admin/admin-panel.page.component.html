@@ -1,0 +1,34 @@
+<div class="page">
+  <div class="top">
+    <h2>Admin Panel</h2>
+    <button class="ghost" (click)="logout()">Logout</button>
+  </div>
+
+  <div *ngIf="isLoading()" class="loading">Loading registrations...</div>
+
+  <table *ngIf="!isLoading()" class="table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Mobile</th>
+        <th>Member</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Photo</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of registrations()">
+        <td>{{ r.fullName }}</td>
+        <td>{{ r.mobile }}</td>
+        <td>{{ r.memberType }}</td>
+        <td>₹{{ r.amount }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.photoName }}</td>
+        <td>{{ r.createdAt | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

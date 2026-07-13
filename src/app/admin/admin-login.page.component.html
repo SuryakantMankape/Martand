@@ -1,0 +1,20 @@
+<div class="page">
+  <h2>Admin Login</h2>
+
+  <form [formGroup]="form" (ngSubmit)="login()" class="form">
+    <label>
+      Username
+      <input formControlName="username" placeholder="Admin username" />
+      <small *ngIf="invalid('username')">Required</small>
+    </label>
+
+    <label>
+      Password
+      <input type="password" formControlName="password" placeholder="Admin password" />
+      <small *ngIf="invalid('password')">Required</small>
+    </label>
+
+    <button type="submit" [disabled]="isLoggingIn()">{{ isLoggingIn() ? 'Logging in...' : 'Login' }}</button>
+  </form>
+</div>
+
